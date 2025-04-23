@@ -1,0 +1,69 @@
+custom_rules:
+  - profiles/wadoh/prepare_data_from_xlsx.smk
+
+metadata_fields:
+  - Isolate_Name
+  - Isolate_Id
+  - passage_category
+  - Host
+  - Location
+  - Authors
+  - Originating_Lab
+  - Collection_Date
+  - Submission_Date
+renamed_metadata_fields:
+  - strain
+  - accession
+  - passage
+  - host
+  - location
+  - authors
+  - originating_lab
+  - date
+  - date_submitted
+
+lat-longs: "config/lat_longs.tsv"
+
+segments:
+  - ha
+  - na
+
+submission_date_field: date_submitted
+recency:
+  date_bins: [7, 30, 90]
+  date_bin_labels: ["last week", "last month", "last quarter"]
+  upper_bin_label: older
+
+array-builds:
+  WA:
+    patterns:
+      lineage:
+        - h3n2
+        - h1n1pdm
+        - vic
+      resolution:
+        - 3
+    build_name: "flu_seasonal_washington_{lineage}_{resolution}y"
+    build_params:
+      reference: "config/{lineage}/{{segment}}/reference.fasta"
+      annotation: "config/{lineage}/{{segment}}/genemap.gff"
+      tree_exclude_sites: "config/{lineage}/{{segment}}/exclude-sites.txt"
+      clades: "config/{lineage}/ha/clades.tsv"
+      subclades: "config/{lineage}/{{segment}}/subclades.tsv"
+      auspice_config: "config/wadoh/{lineage}/auspice_config_wadoh.json"
+      vaccines: "config/{lineage}/vaccine.json"
+      enable_glycosylation: true
+      enable_lbi: true
+    subsampling_parameters:
+      min_date: '(datetime.datetime.today() - datetime.timedelta(days={resolution}*365)).strftime("%Y-%m-%d")'
+      include: "'config/wadoh/{lineage}/reference_strains_wa.txt'"
+      exclude: "'config/{lineage}/outliers.txt'"
+    subsamples:
+      state:
+        filters: --query "division == 'Washington' & host == 'Human'" --min-date {min_date} --include {include}
+      neighboring_state:
+        filters: --query "division == ['Idaho','Oregon','British Columbia'] & host == 'Human'" --min-date {min_date} --include {include}
+      north_america:
+        filters: --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region == 'North America' & host == 'Human'" --subsample-max-sequences 400 --min-date {min_date} --include {include}
+      global:
+        filters: --group-by year month --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region != 'North America' & host == 'Human'" --sequences-per-group 2 --min-date {min_date} --include {include}
