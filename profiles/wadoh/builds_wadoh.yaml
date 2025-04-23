@@ -42,7 +42,6 @@ array-builds:
         - h1n1pdm
         - vic
       resolution:
-        - 2
         - 3
     build_name: "flu_seasonal_washington_{lineage}_{resolution}y"
     build_params:

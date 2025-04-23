@@ -21,7 +21,7 @@ rule prepare_metadata:
     shell:
         """
         pip install openpyxl  # Update to install openpyxl instead of xlrd
-        python3 scripts/xlsx2csv.py --xlsx {input.metadata} --output /dev/stdout \
+        python3 profiles/wadoh/xlsx2csv.py --xlsx {input.metadata} --output /dev/stdout \
             | csvtk cut -f {params.old_fields} \
             | csvtk rename -f {params.old_fields} -n {params.new_fields} \
             | csvtk sep -f location --na "N/A" --names region,country,division,location --merge --num-cols 4 --sep " / " \
