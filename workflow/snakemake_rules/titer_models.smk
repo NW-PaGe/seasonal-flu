@@ -39,6 +39,8 @@ rule titers_sub:
         "benchmarks/titers_sub_{build_name}_{segment}_{titer_collection}.txt",
     log:
         "logs/titers_sub_{build_name}_{segment}_{titer_collection}.txt",
+    resources:
+        mem_mb=8000,
     shell:
         """
         augur titers sub \
@@ -64,6 +66,8 @@ rule titers_tree:
         "benchmarks/titers_tree_{build_name}_{segment}_{titer_collection}.txt",
     log:
         "logs/titers_tree_{build_name}_{segment}_{titer_collection}.txt",
+    resources:
+        mem_mb=8000,
     shell:
         """
         augur titers tree \
@@ -121,7 +125,7 @@ rule generate_collection_config_json:
         groupings=[
             "reference_strain",
             "reference_strain_source",
-            "clade_reference",
+            "subclade_reference",
             "emerging_haplotype_reference",
             "derived_haplotype_reference",
             "source",
@@ -137,8 +141,8 @@ rule generate_collection_config_json:
             "source",
             "test_date",
             "reference_date",
-            "clade_test",
-            "clade_reference",
+            "subclade_test",
+            "subclade_reference",
             "emerging_haplotype_test",
             "emerging_haplotype_reference",
             "derived_haplotype_test",
@@ -181,7 +185,7 @@ rule export_measurements:
         filters=[
             "reference_strain",
             "reference_strain_source",
-            "clade_reference",
+            "subclade_reference",
             "emerging_haplotype_reference",
             "derived_haplotype_reference",
             "source",
@@ -197,8 +201,8 @@ rule export_measurements:
             "source",
             "test_date",
             "reference_date",
-            "clade_test",
-            "clade_reference",
+            "subclade_test",
+            "subclade_reference",
             "emerging_haplotype_test",
             "emerging_haplotype_reference",
             "derived_haplotype_test",
