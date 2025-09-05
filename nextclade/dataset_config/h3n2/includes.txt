@@ -37,6 +37,11 @@ A/Sydney/57/2017
 A/Victoria/628/2017
 A/Basel/USB0033684/2017
 
+# B.1.2
+A/Hiroshima/54/2017
+A/Ehime/21/2017
+A/SouthAfrica/R06488/2017
+
 # A.2
 A/Bangladesh/2006/2014
 A/Bangladesh/1079/2014
@@ -62,3 +67,14 @@ A/VinaDelMar/44363/2024
 A/Bangladesh/4002/2024
 A/HongKong/2468/2024
 A/Ghana/FS-24-3952/2024
+
+
+# J.2.3
+A/Netherlands/00077/2025
+A/Colombia/1851/2024
+A/Colorado/90/2025
+
+#J.2.4
+A/Tokyo/24238/2024
+A/Darwin/172/2025
+A/India/PUN_NIVCOV2512/2025

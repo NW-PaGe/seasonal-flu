@@ -50,28 +50,32 @@
       "type": "categorical",
       "scale": [
         [
-          "C.2",
-          "#4272CE"
+          "C.3",
+          "#4068CF"
         ],
         [
-          "C.3",
-          "#58A2AC"
+          "C.3.1",
+          "#5098B9"
+        ],
+        [
+          "C.3.2",
+          "#6CB28C"
         ],
         [
           "C.5",
-          "#7DB877"
+          "#94BD62"
         ],
         [
           "C.5.1",
-          "#AEBD50"
-        ],
-        [
-          "C.5.4",
-          "#D8AE3E"
+          "#BFBB47"
         ],
         [
           "C.5.6",
-          "#E67A32"
+          "#DFA53B"
+        ],
+        [
+          "C.5.6.1",
+          "#E67131"
         ],
         [
           "C.5.7",
@@ -85,28 +89,32 @@
       "type": "categorical",
       "scale": [
         [
-          "C.2",
-          "#4272CE"
+          "C.3",
+          "#4068CF"
         ],
         [
-          "C.3",
-          "#58A2AC"
+          "C.3.1",
+          "#5098B9"
+        ],
+        [
+          "C.3.2",
+          "#6CB28C"
         ],
         [
           "C.5",
-          "#7DB877"
+          "#94BD62"
         ],
         [
           "C.5.1",
-          "#AEBD50"
-        ],
-        [
-          "C.5.4",
-          "#D8AE3E"
+          "#BFBB47"
         ],
         [
           "C.5.6",
-          "#E67A32"
+          "#DFA53B"
+        ],
+        [
+          "C.5.6.1",
+          "#E67131"
         ],
         [
           "C.5.7",
@@ -267,6 +275,11 @@
     {
       "key": "tsne_cluster",
       "title": "t-SNE cluster",
+      "type": "categorical"
+    },
+    {
+      "key": "qc.overallStatus",
+      "title": "Nextclade QC(overallStatus)",
       "type": "categorical"
     }
   ],
