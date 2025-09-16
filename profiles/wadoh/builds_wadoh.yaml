@@ -11,12 +11,13 @@ metadata_fields:
   - Originating_Lab
   - Collection_Date
   - Submission_Date
+
 renamed_metadata_fields:
   - strain
   - accession
   - passage
   - host
-  - location
+  - full_location
   - authors
   - originating_lab
   - date
@@ -43,6 +44,7 @@ array-builds:
         - vic
       resolution:
         - 3
+        - 2
     build_name: "flu_seasonal_washington_{lineage}_{resolution}y"
     build_params:
       reference: "config/{lineage}/{{segment}}/reference.fasta"

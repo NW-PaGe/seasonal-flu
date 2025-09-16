@@ -17,10 +17,10 @@ A.1.1.2	nuc	390	A
 A.1.1.3	clade	A.1.1	
 A.1.1.3	NA	283	G
 A.1.1.3	nuc	390	A
-A.1.2	clade	A.1	
-A.1.2	NA	53	N
-A.1.2	NA	59	S
-A.1.2	NA	233	E
+A.1.1.4	clade	A.1.1	
+A.1.1.4	NA	53	N
+A.1.1.4	NA	59	S
+A.1.1.4	NA	233	E
 B	clade	A.1	
 B	NA	42	Q
 B	NA	71	A

@@ -12,6 +12,8 @@ logs/
 figures/
 targets/
 benchmarks/
+nextclade_dataset/
+
 
 # Sensitive environment variables
 environment*

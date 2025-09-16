@@ -11,20 +11,19 @@ ruleorder: prepare_sequences > parse
 # 7. Select the first record for each unique strain name in the metadata, keeping the most recent accession.
 rule prepare_metadata:
     input:
-        metadata="data/{lineage}/metadata.xlsx",  # Changed to .xlsx
+        metadata="data/{lineage}/metadata.xlsx"
     output:
-        metadata="data/{lineage}/metadata.tsv",
+        metadata="data/{lineage}/metadata.tsv"
     params:
         old_fields=",".join(config["metadata_fields"]),
         new_fields=",".join(config["renamed_metadata_fields"]),
     conda: "../../workflow/envs/nextstrain.yaml"
     shell:
         """
-        pip install openpyxl  # Update to install openpyxl instead of xlrd
         python3 profiles/wadoh/xlsx2csv.py --xlsx {input.metadata} --output /dev/stdout \
             | csvtk cut -f {params.old_fields} \
             | csvtk rename -f {params.old_fields} -n {params.new_fields} \
-            | csvtk sep -f location --na "N/A" --names region,country,division,location --merge --num-cols 4 --sep " / " \
+            | csvtk sep -f full_location --na "N/A" --names region,country,division,location --merge --num-cols 4 --sep " / " \
             | csvtk replace -f strain -p " " -r "" \
             | csvtk sort -k strain,accession:r \
             | csvtk uniq -T -f strain > {output.metadata}
