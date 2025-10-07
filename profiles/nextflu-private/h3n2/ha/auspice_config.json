@@ -167,6 +167,10 @@
           "#7EB976"
         ],
         [
+          "J.2.4:158D-160K",
+          "#DB2823"
+        ],
+        [
           "J.2.5",
           "#9EBE5A"
         ],
@@ -179,16 +183,12 @@
           "#D9AE3E"
         ],
         [
-          "J.2:145N",
+          "J.2:145N-261Q",
           "#E69036"
         ],
         [
           "J.2:223I",
           "#E35F2D"
-        ],
-        [
-          "J.2:8D",
-          "#DB2823"
         ]
       ]
     },
@@ -235,6 +235,11 @@
     {
       "key": "cell_fra_cTiterSub",
       "title": "Antigenic advance (sub, ferret cell FRA)",
+      "type": "continuous"
+    },
+    {
+      "key": "kikawa_2025_cTiterSub",
+      "title": "Antigenic advance (sub, Kikawa 2025)",
       "type": "continuous"
     },
     {
@@ -570,6 +575,21 @@
     {
       "key": "qc.overallStatus",
       "title": "Nextclade QC(overallStatus)",
+      "type": "categorical"
+    },
+    {
+      "key": "antigenic_distance_to_future_human",
+      "title": "Human-based antigenic distance to future",
+      "type": "continuous"
+    },
+    {
+      "key": "antigenic_distance_to_future_ferret",
+      "title": "Ferret-based antigenic distance to future",
+      "type": "continuous"
+    },
+    {
+      "key": "is_titer_reference",
+      "title": "is titer reference",
       "type": "categorical"
     }
   ],

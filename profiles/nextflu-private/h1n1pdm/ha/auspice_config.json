@@ -147,7 +147,7 @@
           "#E56A2F"
         ],
         [
-          "D.5",
+          "D.3.1:157L",
           "#DB2823"
         ]
       ]
@@ -165,6 +165,11 @@
     {
       "key": "cell_hi_cTiterSub",
       "title": "Antigenic advance (sub, ferret cell HI)",
+      "type": "continuous"
+    },
+    {
+      "key": "kikawa_2025_cTiterSub",
+      "title": "Antigenic advance (sub, Kikawa 2025)",
       "type": "continuous"
     },
     {
@@ -390,6 +395,21 @@
     {
       "key": "qc.overallStatus",
       "title": "Nextclade QC(overallStatus)",
+      "type": "categorical"
+    },
+    {
+      "key": "antigenic_distance_to_future_human",
+      "title": "Human-based antigenic distance to future",
+      "type": "continuous"
+    },
+    {
+      "key": "antigenic_distance_to_future_ferret",
+      "title": "Ferret-based antigenic distance to future",
+      "type": "continuous"
+    },
+    {
+      "key": "is_titer_reference",
+      "title": "is titer reference",
       "type": "categorical"
     }
   ],
