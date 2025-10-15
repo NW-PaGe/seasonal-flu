@@ -44,6 +44,14 @@ phases:
       - echo "Data download complete. Directory structure:"
       - ls -laR data/
       
+            # debug commands
+      - echo "Verifying config file exists:"
+      - ls -la profiles/wadoh/builds_wadoh.yaml
+      - echo "Environment variables:"
+      - echo "BATCH_QUEUE=${BATCH_QUEUE}"
+      - echo "BATCH_JOB_DEFINITION=${BATCH_JOB_DEFINITION}"
+      - echo "S3_BUCKET=${S3_BUCKET}"
+      
       - echo "Submitting Seasonal Flu build to AWS Batch..."
       - nextstrain build --aws-batch --detach --aws-batch-cpus ${BATCH_CPUS} --aws-batch-memory ${BATCH_MEMORY} --aws-batch-queue ${BATCH_QUEUE} --aws-batch-job ${BATCH_JOB_DEFINITION} --aws-batch-s3-bucket ${S3_BUCKET} ${BUILD_TARGET} --configfile ${CONFIG_FILES}
       - echo "Seasonal build submitted successfully to AWS Batch!"
