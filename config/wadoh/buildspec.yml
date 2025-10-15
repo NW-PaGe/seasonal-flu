@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+  variables:
+    # Basic configuration
+    BATCH_CPUS: "8"
+    BATCH_MEMORY: "10240"
+    BUILD_TARGET: "."
+    CONFIG_FILES: "profiles/wadoh/builds_wadoh.yaml"
+
+    # These must be set in CodeBuild environment variables
+    # BATCH_QUEUE: (required)
+    # BATCH_JOB_DEFINITION: (required)
+    # S3_BUCKET: (required)
+
+phases:
+  build:
+    commands:
+      - echo "Starting Seasonal Flu  Nextstrain build..."
+      - echo "Repository already cloned by CodeBuild. Current contents:"
+      - pwd
+      - ls -la
+      - echo "Submitting Seasonal Flu build to AWS Batch..."
+      - nextstrain build --aws-batch --detach --aws-batch-cpus ${BATCH_CPUS} --aws-batch-memory ${BATCH_MEMORY} --aws-batch-queue ${BATCH_QUEUE} --aws-batch-job ${BATCH_JOB_DEFINITION} --aws-batch-s3-bucket ${S3_BUCKET} ${BUILD_TARGET} --configfile ${CONFIG_FILES}
+      - echo "Seasonal build submitted successfully to AWS Batch!"
+      - echo "Build submission completed. Check AWS Batch console for job progress."
