@@ -1,5 +1,4 @@
 version: 0.2
-
 env:
   variables:
     # Basic configuration
@@ -7,19 +6,44 @@ env:
     BATCH_MEMORY: "10240"
     BUILD_TARGET: "."
     CONFIG_FILES: "profiles/wadoh/builds_wadoh.yaml"
-
     # These must be set in CodeBuild environment variables
     # BATCH_QUEUE: (required)
     # BATCH_JOB_DEFINITION: (required)
     # S3_BUCKET: (required)
-
+    # DATA_S3_BUCKET: s3://your-data-bucket (required)
 phases:
   build:
     commands:
-      - echo "Starting Seasonal Flu  Nextstrain build..."
+      - echo "Starting Seasonal Flu Nextstrain build..."
       - echo "Repository already cloned by CodeBuild. Current contents:"
       - pwd
       - ls -la
+      
+      # Download data for all flu types
+      - echo "Creating data directory structure and downloading from S3..."
+      - mkdir -p data/h1n1pdm data/h3n2 data/vic
+      
+      # Download h1n1pdm files
+      - echo "Downloading h1n1pdm data..."
+      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/fasta/sequences_ha.fasta data/h1n1pdm/sequences_ha.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/fasta/sequences_na.fasta data/h1n1pdm/sequences_na.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/metadata/metadata.xlsx data/h1n1pdm/metadata.xlsx
+      
+      # Download h3n2 files
+      - echo "Downloading h3n2 data..."
+      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/fasta/sequences_ha.fasta data/h3n2/sequences_ha.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/fasta/sequences_na.fasta data/h3n2/sequences_na.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/metadata/metadata.xlsx data/h3n2/metadata.xlsx
+      
+      # Download vic files
+      - echo "Downloading vic data..."
+      - aws s3 cp ${DATA_S3_BUCKET}/vic/fasta/sequences_ha.fasta data/vic/sequences_ha.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/vic/fasta/sequences_na.fasta data/vic/sequences_na.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/vic/metadata/metadata.xlsx data/vic/metadata.xlsx
+      
+      - echo "Data download complete. Directory structure:"
+      - ls -laR data/
+      
       - echo "Submitting Seasonal Flu build to AWS Batch..."
       - nextstrain build --aws-batch --detach --aws-batch-cpus ${BATCH_CPUS} --aws-batch-memory ${BATCH_MEMORY} --aws-batch-queue ${BATCH_QUEUE} --aws-batch-job ${BATCH_JOB_DEFINITION} --aws-batch-s3-bucket ${S3_BUCKET} ${BUILD_TARGET} --configfile ${CONFIG_FILES}
       - echo "Seasonal build submitted successfully to AWS Batch!"
