@@ -25,20 +25,20 @@ phases:
       
       # Download h1n1pdm files
       - echo "Downloading h1n1pdm data..."
-      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/fasta/sequences_ha.fasta data/h1n1pdm/sequences_ha.fasta
-      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/fasta/sequences_na.fasta data/h1n1pdm/sequences_na.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/fasta/sequences_ha.fasta data/h1n1pdm/raw_sequences_ha.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/fasta/sequences_na.fasta data/h1n1pdm/raw_sequences_na.fasta
       - aws s3 cp ${DATA_S3_BUCKET}/h1n1pdm/metadata/metadata.xlsx data/h1n1pdm/metadata.xlsx
       
       # Download h3n2 files
       - echo "Downloading h3n2 data..."
-      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/fasta/sequences_ha.fasta data/h3n2/sequences_ha.fasta
-      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/fasta/sequences_na.fasta data/h3n2/sequences_na.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/fasta/sequences_ha.fasta data/h3n2/raw_sequences_ha.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/h3n2/fasta/sequences_na.fasta data/h3n2/raw_sequences_na.fasta
       - aws s3 cp ${DATA_S3_BUCKET}/h3n2/metadata/metadata.xlsx data/h3n2/metadata.xlsx
       
       # Download vic files
       - echo "Downloading vic data..."
-      - aws s3 cp ${DATA_S3_BUCKET}/vic/fasta/sequences_ha.fasta data/vic/sequences_ha.fasta
-      - aws s3 cp ${DATA_S3_BUCKET}/vic/fasta/sequences_na.fasta data/vic/sequences_na.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/vic/fasta/sequences_ha.fasta data/vic/raw_sequences_ha.fasta
+      - aws s3 cp ${DATA_S3_BUCKET}/vic/fasta/sequences_na.fasta data/vic/raw_sequences_na.fasta
       - aws s3 cp ${DATA_S3_BUCKET}/vic/metadata/metadata.xlsx data/vic/metadata.xlsx
       
       - echo "Data download complete. Directory structure:"
