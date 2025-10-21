@@ -2,8 +2,8 @@ version: 0.2
 env:
   variables:
     # Basic configuration
-    BATCH_CPUS: "8"
-    BATCH_MEMORY: "10240"
+    BATCH_CPUS: "16"
+    BATCH_MEMORY: "60000"
     BUILD_TARGET: "."
     CONFIG_FILES: "profiles/wadoh/builds_wadoh.yaml"
     # These must be set in CodeBuild environment variables
