@@ -105,7 +105,15 @@ phases:
         echo "Batch job completed with Job ID: ${BATCH_JOB_ID}"
 
       - echo "Downloading results from Batch job ${BATCH_JOB_ID}..."
-      - nextstrain build --aws-batch --attach ${BATCH_JOB_ID} --download ${BUILD_TARGET}/auspice/*.json .
+      - |
+        # Handle download path based on BUILD_TARGET
+        if [ "${BUILD_TARGET}" = "." ]; then
+          echo "BUILD_TARGET is '.', downloading from root auspice directory..."
+          nextstrain build --aws-batch --attach ${BATCH_JOB_ID} --download auspice/*.json .
+        else
+          echo "BUILD_TARGET is '${BUILD_TARGET}', downloading from ${BUILD_TARGET}/auspice/..."
+          nextstrain build --aws-batch --attach ${BATCH_JOB_ID} --download ${BUILD_TARGET}/auspice/*.json .
+        fi
 
       - echo "Logging into Nextstrain..."
       - nextstrain login --no-prompt
