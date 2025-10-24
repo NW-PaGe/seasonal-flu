@@ -1,25 +1,60 @@
 version: 0.2
+
+# =============================================================================
+# Nextstrain AWS Batch Build with Automated Upload
+# =============================================================================
+# This buildspec runs a Nextstrain build on AWS Batch, downloads results,
+# and uploads them to nextstrain.org
+#
+# REQUIRED CodeBuild Environment Variables:
+# - BATCH_QUEUE: Your AWS Batch queue name
+# - BATCH_JOB_DEFINITION: Your AWS Batch job definition
+# - S3_BUCKET: S3 bucket for Nextstrain builds
+# - NEXTSTRAIN_USERNAME: Parameter Store reference
+# - NEXTSTRAIN_PASSWORD: Parameter Store reference
+#
+# CUSTOMIZABLE Variables (edit below):
+# - BATCH_CPUS: Number of CPUs for the build
+# - BATCH_MEMORY: Memory allocation in MB
+# - BUILD_TARGET: Nextstrain build target folder or directory (e.g., "." or "phylogenetic")
+# - CONFIG_FILES: Space-separated list of config files
+# - NEXTSTRAIN_GROUP: Target upload group on nextstrain.org
+# - BUILD_NAME: Descriptive name for logging
+# =============================================================================
+
 env:
   variables:
-    # Basic configuration
-    BATCH_CPUS: "16"
-    BATCH_MEMORY: "60000"
+    # -------------------------------------------------------------------------
+    # CUSTOMIZE THESE FOR YOUR PATHOGEN/PROJECT
+    # -------------------------------------------------------------------------
+    BUILD_NAME: "Seasonal Flu"
     BUILD_TARGET: "."
     CONFIG_FILES: "profiles/wadoh/builds_wadoh.yaml"
-    # These must be set in CodeBuild environment variables
-    # BATCH_QUEUE: (required)
-    # BATCH_JOB_DEFINITION: (required)
-    # S3_BUCKET: (required)
-    # DATA_S3_BUCKET: s3://your-data-bucket (required)
+    NEXTSTRAIN_GROUP: "nextstrain.org/groups/wadoh-private"
+
+    # -------------------------------------------------------------------------
+    # AWS Batch Resource Configuration
+    # -------------------------------------------------------------------------
+    BATCH_CPUS: "16"
+    BATCH_MEMORY: "60000"
+
+    # -------------------------------------------------------------------------
+    # These must be set in CodeBuild Environment Variables (not here):
+    # - BATCH_QUEUE (Type: plaintext)
+    # - BATCH_JOB_DEFINITION (Type: plaintext)
+    # - S3_BUCKET (Type: plaintext)
+    # - NEXTSTRAIN_USERNAME (Type: Parameter)
+    # - NEXTSTRAIN_PASSWORD (Type: Parameter)
+    # - DATA_S3_BUCKET (Type: plaintext)
+    # -------------------------------------------------------------------------
+
 phases:
   build:
     commands:
-      - echo "Starting Seasonal Flu Nextstrain build..."
-      - echo "Repository already cloned by CodeBuild. Current contents:"
+      - echo "Starting ${BUILD_NAME} Nextstrain Build"
+      - echo "Repository contents:"
       - pwd
       - ls -la
-      
-      # Download data for all flu types
       - echo "Creating data directory structure and downloading from S3..."
       - mkdir -p data/h1n1pdm data/h3n2 data/vic
       
@@ -43,16 +78,37 @@ phases:
       
       - echo "Data download complete. Directory structure:"
       - ls -laR data/
-      
-            # debug commands
-      - echo "Verifying config file exists:"
-      - ls -la profiles/wadoh/builds_wadoh.yaml
-      - echo "Environment variables:"
-      - echo "BATCH_QUEUE=${BATCH_QUEUE}"
-      - echo "BATCH_JOB_DEFINITION=${BATCH_JOB_DEFINITION}"
-      - echo "S3_BUCKET=${S3_BUCKET}"
-      
-      - echo "Submitting Seasonal Flu build to AWS Batch..."
-      - nextstrain build --aws-batch --detach --aws-batch-cpus ${BATCH_CPUS} --aws-batch-memory ${BATCH_MEMORY} --aws-batch-queue ${BATCH_QUEUE} --aws-batch-job ${BATCH_JOB_DEFINITION} --aws-batch-s3-bucket ${S3_BUCKET} ${BUILD_TARGET} --configfile ${CONFIG_FILES}
-      - echo "Seasonal build submitted successfully to AWS Batch!"
-      - echo "Build submission completed. Check AWS Batch console for job progress."
+
+      - echo "Submitting ${BUILD_NAME} build to AWS Batch..."
+      - |
+        # Run the build and capture output for Job ID extraction
+        nextstrain build \
+          --aws-batch \
+          --aws-batch-cpus ${BATCH_CPUS} \
+          --aws-batch-memory ${BATCH_MEMORY} \
+          --aws-batch-queue ${BATCH_QUEUE} \
+          --aws-batch-job ${BATCH_JOB_DEFINITION} \
+          --aws-batch-s3-bucket ${S3_BUCKET} \
+          ${BUILD_TARGET} \
+          --configfile ${CONFIG_FILES} \
+          2>&1 | tee /tmp/nextstrain_output.log
+
+        # Extract the Batch Job ID from the captured output
+        BATCH_JOB_ID=$(grep -oP 'AWS Batch Job ID: \K[a-f0-9-]+' /tmp/nextstrain_output.log)
+
+        if [ -z "$BATCH_JOB_ID" ]; then
+          echo "ERROR: Failed to capture Batch Job ID"
+          cat /tmp/nextstrain_output.log
+          exit 1
+        fi
+
+        echo "Batch job completed with Job ID: ${BATCH_JOB_ID}"
+
+      - echo "Downloading results from Batch job ${BATCH_JOB_ID}..."
+      - nextstrain build --aws-batch --attach ${BATCH_JOB_ID} --download ${BUILD_TARGET}/auspice/*.json .
+
+      - echo "Logging into Nextstrain..."
+      - nextstrain login --no-prompt
+
+      - echo "Uploading results to ${NEXTSTRAIN_GROUP}..."
+      - nextstrain remote upload ${NEXTSTRAIN_GROUP} ${BUILD_TARGET}/auspice/*.json
