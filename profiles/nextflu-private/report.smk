@@ -76,7 +76,7 @@ rule annotate_haplotypes_for_all_nextclade_data:
     output:
         haplotypes="data/{lineage}/ha/nextclade_with_haplotypes.tsv",
     params:
-        clade_column="subclade",
+        clade_column="clade",
         membership_name="emerging_haplotype",
     conda: "../../workflow/envs/nextstrain.yaml"
     log:
@@ -118,8 +118,8 @@ rule get_derived_haplotypes:
     conda: "../../workflow/envs/nextstrain.yaml"
     params:
         genes=["HA1"],
-        clade_column="subclade",
-        mutations_column="founderMuts['subclade'].aaSubstitutions",
+        clade_column="clade",
+        mutations_column="founderMuts['clade'].aaSubstitutions",
         derived_haplotype_column="derived_haplotype",
     shell:
         """
