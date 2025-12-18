@@ -7,8 +7,6 @@ metadata_fields:
   - passage_category
   - Host
   - Location
-  - Authors
-  - Originating_Lab
   - Collection_Date
   - Submission_Date
 
@@ -18,8 +16,6 @@ renamed_metadata_fields:
   - passage
   - host
   - full_location
-  - authors
-  - originating_lab
   - date
   - date_submitted
 
