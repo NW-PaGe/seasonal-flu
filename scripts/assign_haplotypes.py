@@ -4,9 +4,8 @@ from collections import defaultdict
 from functools import partial
 import sys
 
-from augur.io import read_metadata
+from augur.io import read_metadata, write_json
 from augur.io.file import PANDAS_READ_CSV_OPTIONS
-from augur.utils import write_json
 import pandas as pd
 
 
@@ -231,6 +230,11 @@ if __name__ == '__main__':
         sep="\t",
         index=True,
         header=True,
+        columns=[
+            "date",
+            "region",
+            args.haplotype_column_name,
+        ],
     )
 
     if args.output_node_data:
