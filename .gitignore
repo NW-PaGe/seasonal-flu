@@ -13,7 +13,8 @@ figures/
 targets/
 benchmarks/
 nextclade_dataset/
-
+config/*/*/clades.tsv
+config/*/*/subclades.tsv
 
 # Sensitive environment variables
 environment*
