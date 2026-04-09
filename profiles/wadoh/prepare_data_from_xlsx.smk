@@ -1,5 +1,3 @@
-ruleorder: prepare_sequences > parse
-
 # Goal: Takes the XLSX cleaned data from MEP S3 and converts into TSV
 #
 # 1. Convert metadata from XLSX to CSV for better downstream parsing.
