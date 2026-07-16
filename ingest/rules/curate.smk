@@ -42,6 +42,7 @@ def format_field_map(field_map: dict[str, str]) -> str:
 rule curate:
     input:
         sequences_ndjson="data/gisaid.ndjson",
+        exclude=config["curate"]["exclude"],
         lineage_annotations=config["curate"]["lineage_annotations"],
         strain_replacements_seasonal="data/fauna-source-data/flu_strain_name_fix.tsv",
         strain_replacements_avian="data/fauna-source-data/avian_flu_strain_name_fix.tsv",
@@ -58,6 +59,7 @@ rule curate:
     benchmark:
         "benchmarks/curate.txt"
     params:
+        gisaid_id_field=config["gisaid_id_field"],
         field_map=format_field_map(config["curate"]["field_map"]),
         gisaid_subtype_field=config["curate"]["gisaid_subtype_field"],
         gisaid_lineage_field=config["curate"]["gisaid_lineage_field"],
@@ -87,6 +89,9 @@ rule curate:
     shell:
         r"""
         (cat {input.sequences_ndjson:q} \
+            | ./scripts/filter-ndjson-by-value \
+                --field {params.gisaid_id_field:q} \
+                --exclude {input.exclude:q} \
             | augur curate rename \
                 --field-map {params.field_map} \
             | augur curate normalize-strings \
@@ -253,11 +258,13 @@ rule split_ndjson_by_segment:
         segments=config["segments"],
         seq_output_dir=lambda w, output: Path(output.sequences[0]).parent,
         id_field=config["curate"]["output_id_field"],
+        select_seq="gisaid",
     shell:
         r"""
         zstdcat {input.deduped_ndjson:q} \
-            | ./scripts/split-gisaid-ndjson-by-segment \
+            | ./scripts/split-ndjson-by-segment \
                 --segments {params.segments:q} \
+                --select-seq {params.select_seq:q} \
                 --output-metadata {output.metadata:q} \
                 --sequences-output-dir {params.seq_output_dir:q} \
                 --output-id-field {params.id_field:q} 2> {log:q}
@@ -326,7 +333,7 @@ def metadata_selector(wildcards):
 def metadata_fields(wildcards) -> str:
     """
     Returns config defined columns and any additional segment
-    columns added by ./scripts/split-gisaid-ndjson-by-segment
+    columns added by ./scripts/split-ndjson-by-segment
     """
     metadata_columns = config["filtering"][wildcards.dataset]["metadata_columns"].copy()
     for segment in config["segments"]:
