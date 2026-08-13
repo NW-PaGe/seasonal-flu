@@ -132,6 +132,10 @@
           "#D8AE3E"
         ],
         [
+          "J.2.4.2",
+          "#E59638"
+        ],
+        [
           "J.2.5",
           "#DB2823"
         ],
@@ -140,6 +144,16 @@
           "#E67A32"
         ]
       ]
+    },
+    {
+      "key": "subclade_nextclade_ha",
+      "title": "HA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
+      "key": "subclade_nextclade_na",
+      "title": "NA subclade (Nextclade)",
+      "type": "categorical"
     },
     {
       "key": "emerging_haplotype_ha",
@@ -159,7 +173,7 @@
           "#57A1AD"
         ],
         [
-          "J.2.4:79V",
+          "J.2.4.2",
           "#70B487"
         ],
         [
@@ -296,6 +310,16 @@
     {
       "key": "welsh_escape",
       "title": "Welsh et al. escape score",
+      "type": "continuous"
+    },
+    {
+      "key": "ha_muts",
+      "title": "HA mutations",
+      "type": "continuous"
+    },
+    {
+      "key": "ha1_muts",
+      "title": "HA1 mutations",
       "type": "continuous"
     },
     {

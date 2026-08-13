@@ -4,10 +4,11 @@
 # date corresponds to the reporting period of the upcoming vaccine composition
 # meeting. For the VCM in September, we tend to report on data from February of
 # that year.
-min_date: &min_date 2025-05-01
+min_date: &min_date 2026-02-01
 
 custom_rules:
   - workflow/snakemake_rules/download_from_s3.smk
+  - profiles/nextflu-private/antigenic_distances.smk
   - profiles/full-trees/export.smk
 
 lat-longs: "config/lat_longs.tsv"
@@ -67,6 +68,11 @@ builds:
           prefix: cell_fra_
           title: "Cell-passaged FRA titers from ferret sera"
           genes: ["HA1"]
+        - name: egg_fra
+          data: "data/h3n2/who_ferret_egg_fra_titers.tsv"
+          prefix: egg_fra_
+          title: "Egg-passaged FRA titers from ferret sera"
+          genes: ["HA1"]
         - name: cell_hi
           data: "data/h3n2/who_ferret_cell_hi_titers.tsv"
           prefix: cell_hi_
@@ -76,11 +82,6 @@ builds:
           data: "data/h3n2/who_ferret_egg_hi_titers.tsv"
           prefix: egg_hi_
           title: "Egg-passaged HI titers from ferret sera"
-          genes: ["HA1"]
-        - name: who_2025_2026
-          data: "data/h3n2/who_2025_2026_hi_titers.tsv"
-          prefix: who_2025_2026_
-          title: "WHO HI titers from human sera against cell-passaged viruses"
           genes: ["HA1"]
       frequencies: &frequencies
         narrow_bandwidth: 0.02
@@ -121,11 +122,6 @@ builds:
           prefix: egg_hi_
           title: "Egg-passaged HI titers from ferret sera"
           genes: ["HA1"]
-        - name: who_2025_2026
-          data: "data/h1n1pdm/who_2025_2026_hi_titers.tsv"
-          prefix: who_2025_2026_
-          title: "WHO HI titers from human sera against cell-passaged viruses"
-          genes: ["HA1"]
       frequencies: *frequencies
     full-vic:
       lineage: vic
@@ -159,10 +155,5 @@ builds:
           data: "data/vic/who_ferret_egg_hi_titers.tsv"
           prefix: egg_hi_
           title: "Egg-passaged HI titers from ferret sera"
-          genes: ["HA1"]
-        - name: who_2025_2026
-          data: "data/vic/who_2025_2026_hi_titers.tsv"
-          prefix: who_2025_2026_
-          title: "WHO HI titers from human sera against cell-passaged viruses"
           genes: ["HA1"]
       frequencies: *frequencies

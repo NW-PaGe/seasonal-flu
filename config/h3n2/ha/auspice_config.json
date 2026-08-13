@@ -66,6 +66,10 @@
           "#D8AE3E"
         ],
         [
+          "J.2.4.2",
+          "#E59638"
+        ],
+        [
           "J.2.5",
           "#DB2823"
         ],
@@ -103,7 +107,7 @@
           "#57A1AD"
         ],
         [
-          "J.2.4:79V",
+          "J.2.4.2",
           "#70B487"
         ],
         [
@@ -175,6 +179,16 @@
     {
       "key": "rb",
       "title": "RBS adjacent mutations",
+      "type": "continuous"
+    },
+    {
+      "key": "ha_muts",
+      "title": "HA mutations",
+      "type": "continuous"
+    },
+    {
+      "key": "ha1_muts",
+      "title": "HA1 mutations",
       "type": "continuous"
     },
     {

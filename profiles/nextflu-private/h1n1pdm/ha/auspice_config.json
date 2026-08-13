@@ -98,6 +98,16 @@
       ]
     },
     {
+      "key": "subclade_nextclade_ha",
+      "title": "HA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
+      "key": "subclade_nextclade_na",
+      "title": "NA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
       "key": "emerging_haplotype_ha",
       "title": "Emerging haplotype",
       "type": "categorical",
@@ -190,6 +200,16 @@
     {
       "key": "ne",
       "title": "Non-epitope mutations",
+      "type": "continuous"
+    },
+    {
+      "key": "ha_muts",
+      "title": "HA mutations",
+      "type": "continuous"
+    },
+    {
+      "key": "ha1_muts",
+      "title": "HA1 mutations",
       "type": "continuous"
     },
     {
