@@ -5,7 +5,7 @@ from snakemake.utils import min_version
 
 
 wildcard_constraints:
-    lineage = r'h1n1pdm|h3n2|vic|yam',
+    lineage = r'h1n1pdm|h3n2|vic|yam|h1n1',
     segment = r'pb2|pb1|pa|ha|np|na|mp|ns',
     center = r'who|cdc|crick|niid|crick|vidrl',
     passage = r'cell|egg',
@@ -31,6 +31,9 @@ clade_url_by_lineage_and_segment = {
     },
     "vic": {
         "ha": "https://raw.githubusercontent.com/influenza-clade-nomenclature/seasonal_B-Vic_HA/main/.auto-generated/clades.tsv",
+    },
+    "h1n1": {
+        "ha": "https://raw.githubusercontent.com/nextstrain/seasonal-flu/refs/heads/master/config/h1n1/ha/clades.tsv",
     }
 }
 
@@ -46,6 +49,18 @@ subclade_url_by_lineage_and_segment = {
     "vic": {
         "ha": "https://raw.githubusercontent.com/influenza-clade-nomenclature/seasonal_B-Vic_HA/main/.auto-generated/subclades.tsv",
         "na": "https://raw.githubusercontent.com/influenza-clade-nomenclature/seasonal_B-Vic_NA/main/.auto-generated/subclades.tsv",
+    },
+    "h1n1": {
+        "ha": "https://raw.githubusercontent.com/nextstrain/seasonal-flu/refs/heads/master/config/h1n1/ha/subclades.tsv",
+    }
+}
+
+lcr_url_by_lineage_and_segment = {
+    "h3n2": {
+        "ha": {
+            "weights": "https://raw.githubusercontent.com/SamT123/nextstrain-flu-convergence/main/results/lcr_weights.tsv",
+            "windows": "https://raw.githubusercontent.com/SamT123/nextstrain-flu-convergence/main/results/lcr_windows.tsv",
+        },
     }
 }
 
