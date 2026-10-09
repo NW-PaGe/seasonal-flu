@@ -6,5 +6,5 @@
 CY113680.1	Genbank	region	1	1537	.	+	.	ID=CY113680.1:1..1537;Dbxref=taxon:380950;Name=5;bio-material=CEIRS#CIP047BE3292#;collection-date=1992;country=China: Beijing;gbkey=Src;lab-host=xtMK3 MDCK1 passage(s);mol_type=viral cRNA;nat-host=human;segment=5;serotype=H3N2;strain=A/Beijing/32/1992
 CY113680.1	Genbank	sequence_feature	1	1537	.	+	.	ID=id-CY113680.1:1..1537;Dbxref=IRD:NIGSP_CEIRS_CIP047_RFH3_00116.NP;gbkey=misc_feature
 CY113680.1	Genbank	gene	31	1527	.	+	.	ID=gene-NP;Name=NP;gbkey=Gene;gene=NP;gene_biotype=protein_coding
-CY113680.1	Genbank	CDS	31	1527	.	+	0	ID=cds-AFG99681.1;Parent=gene-NP;Dbxref=NCBI_GP:AFG99681.1;Name=AFG99681.1;gbkey=CDS;gene=NP;product=nucleocapsid protein;protein_id=AFG99681.1
+CY113680.1	Genbank	CDS	31	1527	.	+	0	ID=cds-AFG99681.1;Parent=gene-NP;Dbxref=NCBI_GP:AFG99681.1;Name=NP;gbkey=CDS;gene=NP;product=nucleocapsid protein;protein_id=AFG99681.1
 
