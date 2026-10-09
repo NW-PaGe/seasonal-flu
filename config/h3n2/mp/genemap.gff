@@ -1,0 +1,13 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region CY113678.1 1 999
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=380950
+CY113678.1	Genbank	region	1	999	.	+	.	ID=CY113678.1:1..999;Dbxref=taxon:380950;Name=7;bio-material=CEIRS#CIP047BE3292#;collection-date=1992;country=China: Beijing;gbkey=Src;lab-host=xtMK3 MDCK1 passage(s);mol_type=viral cRNA;nat-host=human;segment=7;serotype=H3N2;strain=A/Beijing/32/1992
+CY113678.1	Genbank	sequence_feature	1	999	.	+	.	ID=id-CY113678.1:1..999;Dbxref=IRD:NIGSP_CEIRS_CIP047_RFH3_00116.MP;gbkey=misc_feature
+CY113678.1	Genbank	gene	11	992	.	+	.	ID=gene-M2;Name=M2;gbkey=Gene;gene=M2;gene_biotype=protein_coding
+CY113678.1	Genbank	CDS	11	36	.	+	0	ID=cds-AFG99679.1;Parent=gene-M2;Dbxref=NCBI_GP:AFG99679.1;Name=AFG99679.1;gbkey=CDS;gene=M2;product=matrix protein 2;protein_id=AFG99679.1
+CY113678.1	Genbank	CDS	725	992	.	+	1	ID=cds-AFG99679.1;Parent=gene-M2;Dbxref=NCBI_GP:AFG99679.1;Name=AFG99679.1;gbkey=CDS;gene=M2;product=matrix protein 2;protein_id=AFG99679.1
+CY113678.1	Genbank	gene	11	769	.	+	.	ID=gene-M1;Name=M1;gbkey=Gene;gene=M1;gene_biotype=protein_coding
+CY113678.1	Genbank	CDS	11	769	.	+	0	ID=cds-AFG99678.1;Parent=gene-M1;Dbxref=NCBI_GP:AFG99678.1;Name=AFG99678.1;gbkey=CDS;gene=M1;product=matrix protein 1;protein_id=AFG99678.1
+

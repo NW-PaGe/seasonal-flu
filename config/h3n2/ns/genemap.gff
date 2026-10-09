@@ -1,0 +1,13 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region CY113681.1 1 864
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=380950
+CY113681.1	Genbank	region	1	864	.	+	.	ID=CY113681.1:1..864;Dbxref=taxon:380950;Name=8;bio-material=CEIRS#CIP047BE3292#;collection-date=1992;country=China: Beijing;gbkey=Src;lab-host=xtMK3 MDCK1 passage(s);mol_type=viral cRNA;nat-host=human;segment=8;serotype=H3N2;strain=A/Beijing/32/1992
+CY113681.1	Genbank	sequence_feature	1	864	.	+	.	ID=id-CY113681.1:1..864;Dbxref=IRD:NIGSP_CEIRS_CIP047_RFH3_00116.NS;gbkey=misc_feature
+CY113681.1	Genbank	gene	12	849	.	+	.	ID=gene-NEP;Name=NEP;gbkey=Gene;gene=NEP;gene_biotype=protein_coding;gene_synonym=NS2
+CY113681.1	Genbank	CDS	12	41	.	+	0	ID=cds-AFG99683.1;Parent=gene-NEP;Dbxref=NCBI_GP:AFG99683.1;Name=AFG99683.1;Note=nonstructural protein 2;gbkey=CDS;gene=NEP;product=nuclear export protein;protein_id=AFG99683.1
+CY113681.1	Genbank	CDS	514	849	.	+	0	ID=cds-AFG99683.1;Parent=gene-NEP;Dbxref=NCBI_GP:AFG99683.1;Name=AFG99683.1;Note=nonstructural protein 2;gbkey=CDS;gene=NEP;product=nuclear export protein;protein_id=AFG99683.1
+CY113681.1	Genbank	gene	12	704	.	+	.	ID=gene-NS1;Name=NS1;gbkey=Gene;gene=NS1;gene_biotype=protein_coding
+CY113681.1	Genbank	CDS	12	704	.	+	0	ID=cds-AFG99682.1;Parent=gene-NS1;Dbxref=NCBI_GP:AFG99682.1;Name=AFG99682.1;gbkey=CDS;gene=NS1;product=nonstructural protein 1;protein_id=AFG99682.1
+
