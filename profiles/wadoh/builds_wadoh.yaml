@@ -36,11 +36,8 @@ array-builds:
     patterns:
       lineage:
         - h3n2
-        - h1n1pdm
-        - vic
       resolution:
         - 3
-        - 2
     build_name: "flu_seasonal_washington_{lineage}_{resolution}y"
     build_params:
       reference: "config/{lineage}/{{segment}}/reference.fasta"
