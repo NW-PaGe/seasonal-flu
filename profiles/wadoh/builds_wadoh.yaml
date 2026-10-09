@@ -22,8 +22,14 @@ renamed_metadata_fields:
 lat-longs: "config/lat_longs.tsv"
 
 segments:
+  - pb2
+  - pb1
+  - pa
   - ha
+  - np
   - na
+  - mp
+  - ns
 
 submission_date_field: date_submitted
 recency:

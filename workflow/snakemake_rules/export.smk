@@ -21,8 +21,8 @@ def _get_node_data_by_wildcards(wildcards):
     if _get_build_distance_map_config(wildcards) is not None:
         inputs.append(rules.distances.output.distances)
 
-
-    if config["builds"][wildcards.build_name].get('subclades', False):
+    if (wildcards.segment in ['ha', 'na']
+            and config["builds"][wildcards.build_name].get('subclades', False)):
         inputs.append(rules.subclades.output.node_data)
 
     if config["builds"][wildcards.build_name].get('enable_titer_models', False) and wildcards.segment == 'ha':

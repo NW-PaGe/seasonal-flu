@@ -19,8 +19,14 @@ output:
 build_dir = config.get("build_dir", "builds")
 
 GENES = {
+    'pb2': ['PB2'],
+    'pb1': ['PB1', 'PB1-F2'],
+    'pa': ['PA'],
     'ha': ['SigPep', 'HA1', 'HA2'],
+    'np': ['NP'],
     'na': ['NA'],
+    'mp': ['M1'],
+    'ns': ['NS1']
 }
 
 rule mask:
@@ -374,6 +380,8 @@ rule download_subclades:
     conda: "../envs/nextstrain.yaml"
     params:
         url=lambda wildcards: subclade_url_by_lineage_and_segment.get(wildcards.lineage, {}).get(wildcards.segment),
+    wildcard_constraints:
+        segment="ha|na",
     shell:
         """
         curl -o {output.subclades} "{params.url}"
@@ -390,6 +398,8 @@ rule subclades:
     params:
         membership_name = "subclade",
         label_name = "Subclade",
+    wildcard_constraints:
+        segment="ha|na",
     conda: "../envs/nextstrain.yaml"
     benchmark:
         "benchmarks/subclades_{build_name}_{segment}.txt"
