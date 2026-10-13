@@ -1,244 +1,206 @@
-# nextstrain.org/flu
+# [Title]
 
-[![Build Status](https://github.com/nextstrain/seasonal-flu/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/nextstrain/seasonal-flu/actions/workflows/ci.yaml)
+## Build Overview
+- **Build Name**: Washington focused seasonal flu build
+- **Pathogen/Strain**: Influenza A/H3N1, A/H1N1pdm and  B/Victoria
+- **Scope**: HA and NA segments, Washington focused
+- **Purpose**: This build supports statewide genomic surveillance for seasonal flu in Washington for real-time public health situational awareness. Sequences are included from Washington State, with contextual sequences of North America and global origin included using a tiered-subsampling scheme. Different than the Nextstrain Team's seasonal flu build, this pipeline allows a more focused look at Washington seasonal flu surveillance as opposed to a more global look at seasonal flu surveillance.
 
-This is the [Nextstrain](https://nextstrain.org) build for seasonal influenza viruses,
-available online at [nextstrain.org/flu](https://nextstrain.org/flu).
+- **Nextstrain Build Locations**:
 
-The build encompasses fetching data, preparing it for analysis, doing quality control,
-performing analyses, and saving the results in a format suitable for visualization (with
-[auspice][]).  This involves running components of Nextstrain such as [fauna][] and
-[augur][].
+**Two-year HA builds:**
 
-All influenza virus specific steps and functionality for the Nextstrain pipeline should be
-housed in this repository.
+[https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h1n1pdm/2y/ha] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h3n2/2y/ha] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/vic/2y/ha]
 
-This build is more complicated than other standard nextstrain build because all four
-currently circulating seasonal influenza lineages (A/H3N2, A/H1N1pdm, B/Vic and B/Yam)
-are analyzed using the same Snakefile with appropriate wildcards. In addition, we run
-analyses of both the HA and NA segments of the influenza virus genome and analyze datasets
-that span different time intervals (eg 2, 3, 6 years). Furthermore, the Nextstrain analysis
-of influenza virus evolution also uses antigenic and serological data from different
-WHO collaborating centers.
+**Two-year NA builds:**
 
-The different builds for the general public and the different WHO collaborating centers
-are configured via separate config files. The Nextstrain build configs
-([upload](profiles/upload.yaml), [nextstrain-public](profiles/nextstrain-public.yaml), [private.nextflu.org](profiles/private.nextflu.org.yaml))
-are used for our semi-automated builds through our [GitHub Action workflows](.github/workflows/).
+ [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h1n1pdm/2y/na] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h3n2/2y/na] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/vic/2y/na]
 
-## Example build
+**Three-year HA builds:**
 
-You can run an example build using the example data provided in this repository.
+[https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h1n1pdm/3y/ha] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h3n2/3y/ha] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/vic/3y/ha]
 
-First follow the [standard installation instructions](https://docs.nextstrain.org/en/latest/install.html)
-for Nextstrain's suite of software tools.
+**Three-year NA builds:**
 
-Then run the example build via:
+[https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h1n1pdm/3y/na] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/h3n2/3y/na] [https://nextstrain.org/groups/wadoh/flu/seasonal/washington/vic/3y/na]
 
+
+
+## Table of Contents
+- [Pathogen Epidemiology](#pathogen-epidemiology)
+- [Scientific Decisions](#scientific-decisions)
+- [Getting Started](#getting-started)
+  - [Data Sources & Inputs](#data-sources--inputs)
+  - [Setup & Dependencies](#setup--dependencies)
+    - [Installation](#installation)
+    - [Clone the repository](#clone-the-repository)
+- [Run the Build](#run-the-build-with-test-data)
+  - [Expected Outputs](#expected-outputs)
+  - [Visualizing Results](#visualize-results)
+- [Customization for Local Adaptation](#customization-for-local-adaptation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+
+## Pathogen Epidemiology
+- Overview:
+  - Pathogen type and family
+  - Key subtypes/lineages relevant to the build
+  - Mode(s) of transmission
+- Nomenclature
+- Geographic Distribution and Seasonality
+  - Summarize where the pathogen has been found globally and/or in the region
+  - Any seasonality patterns
+
+- Public health importance
+  - Why does surveillance matter for this pathogen.
+- Genomic Relevance
+  - Why are genomic data useful for this pathogen:
+    - detecting lineage shifts
+    - detecting emergence of variants
+    - outbreak investigations
+    - monitoring vaccine escape or antiviral resistance
+    - understanding transmission pathways
+
+- Additional Resources
+  - Link any additional resources that are helpful in learning about this pathogen
+  - Link Pathogen Genomic Profile if we have one created
+
+## Scientific Decisions
+*(This section is dedicated to talking about the scientific decisions that were made in the development of the build to help others when making their own analyses or builds)*
+
+Nextstrain builds are designed for specific purposes and not all types of builds for a particular pathogen will answer the same questions. The following are critical decisions that were made during the development of this build that should be kept in mind when analyzing the data and using this build. *Subsampling, root selection, and reference selection must be included at minimum.*
+
+- **Nomenclature**: The nomenclature used by in this build to designate clade names is determined by [X]
+- **Subsampling**: Includes all Washington, Idaho, Oregon, and British Columbia human sequences,
+- **Root selection**: [Describe the root selected for the build that mutations are called against]
+- **Reference selection**: Based off of Nextstrain's seasonal flu reference selection but curated to focus on more recent, regional strains
+- **Inclusion/Exclusion**: [Explain why certain sequences may or may not be included/excluded]
+- **Other adjustments**: [Explain any other important adjustments]
+
+## Getting Started
+*(Provide any context new users should know before using this project.) Some high-level features and capabilities specific to this build include:*
+
+- [Feature 1: Feature 1 is helpful because it allows for X]
+- [Feature 2: Feature 2 is helpful because it allows for X]
+
+### Data Sources & Inputs
+*(Provide any information on data sources and the inputs needed to run the build)*
+This build relies on publicly available data sourced from [data sources].
+
+- **Sequence Data**: [Data sources]
+- **Metadata**: [Metadata sources]
+- **Expected Inputs**:
+    - `[data_location]/sequences.fasta` (containing viral genome sequences)
+    - `[data_location]/metadata.xls` (with relevant sample information)
+- **Private data, if applicable**:
+
+### Setup & Dependencies
+#### Installation
+Ensure that you have [Nextstrain](https://docs.nextstrain.org/en/latest/install.html) installed.
+
+To check that Nextstrain is installed:
 ```
-nextstrain build .  --configfile profiles/example/builds.yaml
-```
-
-When the build has finished running, view the output Auspice trees via:
-
-```
-nextstrain view auspice/
-```
-
-## Quickstart with GISAID data
-
-Navigate to [GISAID](http://gisaid.org).
-Select the "EpiFlu" link in the top navigation bar and then select "Search" from the EpiFlu navigation bar.
-From the search interface, select A/H3N2 human samples collected in your time period of interest.
-Under the "Required Segments" section at the bottom of the page, select "HA".
-Check "exclude" TPE submissions to exclude restricted data, as shown in the example below.
-
-![Search for recent A/H3N2 data](images/01-search-gisaid-for-h3n2.png)
-
-Then select the "Search" button.
-Select the checkbox in the top-left corner of the search results (the same row with the column headings), to select all matching records as shown below.
-
-![Select all matching records from search results](images/02-gisaid-search-results.png)
-
-Select the "Download" button.
-From the "Download" window that appears, select "Isolates as XLS (virus metadata only)" and then select the "Download" button.
-
-![Download metadata](images/03-download-metadata.png)
-
-Create a new directory for these data in the `seasonal-flu` working directory.
-
-``` bash
-mkdir -p ingest/data/
-```
-
-Save the XLS file you downloaded as `ingest/data/<YYYY-MM-DD-N>-metadata.xls`.
-  - `<YYYY-MM-DD>` is the date the files were downloaded from GISAID.
-  - `<N>` is the number of the download to support multiple downloads in the
-    same day since GISAID limits the number of records per download.
-  - For example, if you had to split the data between two downloads on 2025-04-11,
-    then save the files as
-      - `2025-04-11-01-metadata.xls`
-      - `2025-04-11-02-metadata.xls`
-
-Return to the GISAID "Download" window, and select "Sequences (DNA) as FASTA".
-In the "DNA" section, select the checkbox for "HA".
-In the "FASTA Header" section, enter
-```
-DNA Accession no. | Submitting lab  | Originating lab
-```
-Uncheck both boxes related to spaces in the FASTA header.
-Your settings should look like those shown in the screenshot below.
-
-![Download sequences](images/04-download-sequences.png)
-
-Select the "Download" button.
-Save the FASTA file you downloaded `ingest/data/<YYYY-MM-DD-N>-sequences.fasta`.
-
-Run the Nextstrain ingest workflow for these data to produce the clean input for
-the phylogenetic workflow with the following command.
-
-```bash
-nextstrain build ingest --configfile build-configs/gisaid/config.yaml
-```
-
-Explore the configuration file for this workflow by opening `ingest/build-configs/gisaid/config.yaml`
-in your favorite text editor. This configuration file determines the outputs
-of the workflow, including the lineages and segments. If you would like to
-create builds for other lineages and/or segments, make sure to download the data
-from GISAID then edit the config file to rerun ingest and create outputs for
-your data of interest.
-
-Run the workflow to create an annotated phylogenetic tree of recent A/H3N2 HA data with
-the results from the ingest workflow with the following command.
-
-``` bash
-nextstrain build . --configfile profiles/gisaid/builds.yaml
+nextstrain check-setup
 ```
 
-When the workflow finishes running, visualize the resulting tree with the following command.
+#### Clone the repository:
 
-``` bash
-nextstrain view auspice
+```
+git clone https://github.com/NW-PaGe/seasonal-flu.git
+cd seasonal-flu
 ```
 
-Explore the configuration file for this workflow by opening `profiles/gisaid/builds.yaml` in your favorite text editor.
-This configuration file determines how the workflow runs, including how samples get selected for the tree.
-Try changing the number of maximum sequences retained from subsampling from `100` to `500` and the geographic grouping from `region` to `country`.
-Rerun your analysis by adding the `--forceall` flag to the end of the `nextstrain build` command you ran above.
-How did those changes to the configuration file change the tree?
+## Run the Build
+*(Explain how to run the build with test data. Example text on how this might be explained is below)*
 
-To skip subsampling and use all records that you downloaded from GISAID, set `filters` string in the build configuration file to an empty string as shown in the following subsection of the YAML file.
+To test the pipeline with the provided example data located in `test_data/` make sure you are located in the build folder `seasonal-flu` before running the build command:
 
-```yaml
-      subsamples:
-        global:
-            filters: ""
+```
+nextstrain build .
 ```
 
-## Configuration
+When you run the build using `nextstrain build .`, Nextstrain uses Snakemake as the workflow manager to automate genomic analyses. The Snakefile in a Nextstrain build defines how raw input data (sequences and metadata) are processed step-by-step in an automated way. Nextstrain builds are powered by Augur (for phylogenetics) and Auspice (for visualization) and Snakemake is used to automate the execution of these steps using Augur and Auspice based on file dependencies.
 
-Explore the other configuration files in `profiles/`, to see other examples of how you can build your own Nextstrain workflows for influenza.
+### Run the Build with Test Data (Optional)
+For builds that do not programmatically pull data from NCBI or another source, include a `test_data/` folder containing a minimal working example of test data that can be successfully executed by the build.
 
-> [!IMPORTANT]
-> The workflow is optimized for HA and NA segments and requires additional files if you are building other segments!
+### Expected Outputs
+The file structure of the repository is as follows with `*`" folders denoting folders that are the build's expected outputs.
 
-- The following files are required for different lineage and segment builds:
-  - reference: "config/{lineage}/{segment}/reference.fasta"
-  - annotation: "config/{lineage}/{segment}/genemap.gff"
-  - tree_exclude_sites: "config/{lineage}/{segment}/exclude-sites.txt"
-- The workflow assigns clade annotations to non-HA segments from HA, so the
-`clades` configuration should always point to the HA clade definition TSV.
-- The workflow only has subclade annotations for HA and NA segments, so remove
-the `subclades` configuration for other segments builds.
-
-### Inputs
-
-The configuration can include a top-level `inputs` list that defines the
-separate inputs' name, lineage, metadata, id field, and sequences.
-Optionally, the config can have a top-level `additional-inputs` list that is
-used to define additional data that are combined with the default inputs:
-
-```yaml
-inputs:
-    - name: default
-      lineage: h3n2
-      metadata: ingest/results/h3n2/metadata.tsv
-      id_field: strain
-      sequences: ingest/results/h3n2/{segment}.fasta
-
-additional_inputs:
-    - name: private
-      lineage: <lineage>
-      metadata: <path-or-url>
-      id_field: <metadata-id-field-name>
-      sequences: <path-or-url>
 ```
-The `id_field` key for each input is passed through to `augur merge --metadata-id-columns`.
-The merged metadata's id field is always named `strain` for downstream scripts.
-
-The `sequences` key can include the `{segment}` template to match to multiple
-segment filepaths. Sequences can also be a defined a dict with keys for specific segments
-if they have different filepaths.
-
-```yaml
-inputs:
-    - name: default
-      lineage: h3n2
-      metadata: ingest/results/h3n2/metadata.tsv
-      id_field: strain
-      sequences:
-        ha: ingest/results/h3n2/ha.fasta
-        na: ingest/new-results/h3n2/na.fasta
+.
+├── README.md
+├── Snakefile
+├── auspice*
+├── clade-labeling
+├── config
+├── data
+├── test_data
+├── results*
+└── scripts
 ```
+More details on the file structure of this build can be found here (link to Wiki page that contains contents of  Repository File Structure Overview section).
 
-## GitHub Action Workflows
+After successfully running the build there will be two output folders containing the build results.
 
-The GitHub Action workflows in this repo orchestrates workflows across other repos:
+- `auspice/` folder contains: a .json file
+- `results/` folder contains:
+
+### Visualize Results
+- Dropping .json into auspice.us
+- `nextstrain view auspice/*.json`
+
+- Link folks to tree interpretation resources that people can use to make their inferences.
 
 
-```mermaid
-flowchart LR
-  subgraph seasonal-flu
-    subgraph upload
-      ingest[[ingest]]
-      triggerAvian[[trigger_avian_flu]]
-      uploadTiters[[upload_titers]]
-      triggerForecasts[[trigger_forecasts_flu]]
-    end
+## Customization for Local Adaptation
+ *[Brief overview on how to adapt this build for another jurisdiction, such as a state, city, county, or country. Including links to Readmes in other sections that contain detailed instructions on what and how to modify the files]*
 
-    runPublic[run-public-builds]
-    runPrivate[run-nextflu-private-builds]
-  end
+This build can be customized for use by other demes, including as states, cities, counties, or countries.
 
-  subgraph avian-flu
-    genoflu[genoflu-gisaid]
-  end
+- What files or folders need to be modified in order to adapt for other jurisdictions? If this is lengthy then you can link to a wiki page tab that goes into detail on how someone might adapt this build for their jurisdiction.
 
-  subgraph forecasts-flu
-    subgraph runModels[run-models]
-      run_models[[run_models]]
-      trigger[[trigger]]
-    end
-  end
+## Contributing
+For any questions please submit them to our [Discussions](insert link here) page otherwise software issues and requests can be logged as a Git [Issue](insert link here).
 
-  seasonal-flu ~~~ avian-flu
-  seasonal-flu ~~~ forecasts-flu
-  ingest --> uploadTiters --> triggerForecasts
-  ingest --> triggerAvian -."inputs.triggerAvianFlu" .-> genoflu
-  triggerForecasts -."inputs.triggerForecastsFlu".-> runModels
-  run_models --> trigger
-  trigger -."inputs.triggerPublic".-> runPublic
-  trigger -."inputs.triggerNextfluPrivate".-> runPrivate
+## License
+This project is licensed under a modified GPL-3.0 License.
+You may use, modify, and distribute this work, but commercial use is strictly prohibited without prior written permission.
+
+## Acknowledgements
+
+*[add acknowledgements to those who have contributed to this work]*
+
+<!-- Repository File Structure Overview [**Move contents of this section to Wiki**]
+(This section outlines the high-level file structure of the repo to help folks navigate the repo. If the build follows the pathogen template repo feel free to make this section brief and link to the pathogen template repo resource)*
+
+Example text below:
+
+This Nextstrain build follows the structure detailed in the [Pathogen Repo Guide](https://github.com/nextstrain/pathogen-repo-guide).
+Mainly, this build contains [number] workflows for the analysis of [pathogen] virus data:
+- ingest/ [link to ingest workflow] Download data from [source], clean, format, curate it, and assign clades.
+- phylogenetic/ [link to phylogenetic workflow] Subsample data and make phylogenetic trees for use in nextstrain.
+
+OR
+The file structure of the repository is as follows with `*`" folders denoting folders that are the build's expected outputs.
+
+```
+.
+├── README.md
+├── Snakefile
+├── auspice*
+├── clade-labeling
+├── config
+├── new_data
+├── results*
+└── scripts
 ```
 
-## History
-
- - Prior to March 31, 2023, we selected strains for each build using a custom Python script called [select_strains.py](https://github.com/nextstrain/seasonal-flu/blob/64b5204d23c0b95e4b06f943e4efb8db005759c0/scripts/select_strains.py). With the merge of [the refactored workflow](https://github.com/nextstrain/seasonal-flu/pull/76), we have since used a configuration file to define the `augur filter` query logic we want for strain selection per build.
-
-[Nextstrain]: https://nextstrain.org
-[fauna]: https://github.com/nextstrain/fauna
-[augur]: https://github.com/nextstrain/augur
-[auspice]: https://github.com/nextstrain/auspice
-[snakemake cli]: https://snakemake.readthedocs.io/en/stable/executable.html#all-options
-[nextstrain-cli]: https://github.com/nextstrain/cli
-[nextstrain-cli README]: https://github.com/nextstrain/cli/blob/master/README.md
+- `Snakefile`: Snakefile description
+- `config/`: contains what
+- `new_data/`: contains What
+- `scripts/`: contains what
+- `clade-labeling`: contains what
+-->
