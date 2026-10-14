@@ -68,9 +68,8 @@
   - Link Pathogen Genomic Profile if we have one created
 
 ## Scientific Decisions
-*(This section is dedicated to talking about the scientific decisions that were made in the development of the build to help others when making their own analyses or builds)*
 
-Nextstrain builds are designed for specific purposes and not all types of builds for a particular pathogen will answer the same questions. The following are critical decisions that were made during the development of this build that should be kept in mind when analyzing the data and using this build. *Subsampling, root selection, and reference selection must be included at minimum.*
+Nextstrain builds are designed for specific purposes and not all types of builds for a particular pathogen will answer the same questions. The following are critical decisions that were made during the development of this build that should be kept in mind when analyzing the data and using this build. <!-- *Subsampling, root selection, and reference selection must be included at minimum.* -->
 
 - **Nomenclature**: The nomenclature used by in this build to designate clade names is determined by [X]
 - **Subsampling**: Includes all Washington, Idaho, Oregon, and British Columbia human sequences,
@@ -89,12 +88,12 @@ Nextstrain builds are designed for specific purposes and not all types of builds
 *(Provide any information on data sources and the inputs needed to run the build)*
 This build relies on publicly available data sourced from [data sources].
 
-- **Sequence Data**: [Data sources]
-- **Metadata**: [Metadata sources]
+- **Sequence Data**: Sequence data originate from [GISAID](https://gisaid.org/)
+- **Metadata**: Metadata data originate from [GISAID](https://gisaid.org/)
 - **Expected Inputs**:
-    - `[data_location]/sequences.fasta` (containing viral genome sequences)
-    - `[data_location]/metadata.xls` (with relevant sample information)
-- **Private data, if applicable**:
+    - `[data]/{subtype}/raw_sequences_{segment}.fasta` (containing viral genome sequences per segment)
+    - `[data]/{subtype}/metadata.xlsx` (with relevant sample information)
+<!-- - **Private data, if applicable**: -->
 
 ### Setup & Dependencies
 #### Installation
@@ -112,8 +111,8 @@ git clone https://github.com/NW-PaGe/seasonal-flu.git
 cd seasonal-flu
 ```
 
-## Run the Build
-*(Explain how to run the build with test data. Example text on how this might be explained is below)*
+<!--## Run the Build
+*(Explain how to run the build with test data. Example text on how this might be explained is below)* -->
 
 To test the pipeline with the provided example data located in `test_data/` make sure you are located in the build folder `seasonal-flu` before running the build command:
 
@@ -123,8 +122,8 @@ nextstrain build .
 
 When you run the build using `nextstrain build .`, Nextstrain uses Snakemake as the workflow manager to automate genomic analyses. The Snakefile in a Nextstrain build defines how raw input data (sequences and metadata) are processed step-by-step in an automated way. Nextstrain builds are powered by Augur (for phylogenetics) and Auspice (for visualization) and Snakemake is used to automate the execution of these steps using Augur and Auspice based on file dependencies.
 
-### Run the Build with Test Data (Optional)
-For builds that do not programmatically pull data from NCBI or another source, include a `test_data/` folder containing a minimal working example of test data that can be successfully executed by the build.
+<!-- ### Run the Build with Test Data (Optional)
+For builds that do not programmatically pull data from NCBI or another source, include a `test_data/` folder containing a minimal working example of test data that can be successfully executed by the build. -->
 
 ### Expected Outputs
 The file structure of the repository is as follows with `*`" folders denoting folders that are the build's expected outputs.
@@ -163,7 +162,7 @@ This build can be customized for use by other demes, including as states, cities
 - What files or folders need to be modified in order to adapt for other jurisdictions? If this is lengthy then you can link to a wiki page tab that goes into detail on how someone might adapt this build for their jurisdiction.
 
 ## Contributing
-For any questions please submit them to our [Discussions](insert link here) page otherwise software issues and requests can be logged as a Git [Issue](insert link here).
+For any questions please submit them to our [Discussions](https://github.com/NW-PaGe/seasonal-flu/discussions) page otherwise software issues and requests can be logged as a Git [Issue](https://github.com/NW-PaGe/seasonal-flu/issues).
 
 ## License
 This project is licensed under a modified GPL-3.0 License.
