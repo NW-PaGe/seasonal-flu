@@ -25,8 +25,8 @@ GENES = {
     'ha': ['SigPep', 'HA1', 'HA2'],
     'np': ['NP'],
     'na': ['NA'],
-    'mp': ['M1'],
-    'ns': ['NS1']
+    'mp': ['M1', 'M2'],
+    'ns': ['NEP', 'NS1']
 }
 
 rule mask:
@@ -311,6 +311,7 @@ rule ancestral:
             --translations "{params.input_translations}" \
             --output-node-data {output.node_data} \
             --output-translations "{params.output_translations}" \
+            --use-nextclade-gff-style \
             --inference {params.inference} 2>&1 | tee {log} && touch {output.translations_done}
         """
 
