@@ -424,6 +424,8 @@ rule import_clades:
         clades = build_dir + "/{build_name}/ha/clades.json",
     output:
         node_data = build_dir + "/{build_name}/{segment}/clades.json",
+    wildcard_constraints:
+        segment = "(?!ha/)[^/]+",   # any segment except ha
     conda: "../envs/nextstrain.yaml"
     benchmark:
         "benchmarks/import_clades_{build_name}_{segment}.txt"
