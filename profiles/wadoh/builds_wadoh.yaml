@@ -22,8 +22,14 @@ renamed_metadata_fields:
 lat-longs: "config/lat_longs.tsv"
 
 segments:
+  - pb2
+  - pb1
+  - pa
   - ha
+  - np
   - na
+  - mp
+  - ns
 
 submission_date_field: date_submitted
 recency:
@@ -36,11 +42,8 @@ array-builds:
     patterns:
       lineage:
         - h3n2
-        - h1n1pdm
-        - vic
       resolution:
         - 3
-        - 2
     build_name: "flu_seasonal_washington_{lineage}_{resolution}y"
     build_params:
       reference: "config/{lineage}/{{segment}}/reference.fasta"
@@ -50,6 +53,7 @@ array-builds:
       subclades: "config/{lineage}/{{segment}}/subclades.tsv"
       auspice_config: "config/wadoh/{lineage}/auspice_config_wadoh.json"
       vaccines: "config/{lineage}/vaccine.json"
+      enable_embeddings: true
       enable_glycosylation: true
       enable_lbi: true
     subsampling_parameters:
@@ -65,3 +69,6 @@ array-builds:
         filters: --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region == 'North America' & host == 'Human'" --subsample-max-sequences 400 --min-date {min_date} --include {include}
       global:
         filters: --group-by year month --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region != 'North America' & host == 'Human'" --sequences-per-group 2 --min-date {min_date} --include {include}
+
+embedding:
+  perplexity: 40 # TO DO: when full dataset is used, increase perplexity
