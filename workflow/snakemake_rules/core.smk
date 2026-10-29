@@ -19,8 +19,14 @@ output:
 build_dir = config.get("build_dir", "builds")
 
 GENES = {
+    'pb2': ['PB2'],
+    'pb1': ['PB1', 'PB1-F2'],
+    'pa': ['PA'],
     'ha': ['SigPep', 'HA1', 'HA2'],
+    'np': ['NP'],
     'na': ['NA'],
+    'mp': ['M1', 'M2'],
+    'ns': ['NEP', 'NS1']
 }
 
 rule mask:
@@ -305,6 +311,7 @@ rule ancestral:
             --translations "{params.input_translations}" \
             --output-node-data {output.node_data} \
             --output-translations "{params.output_translations}" \
+            --use-nextclade-gff-style \
             --inference {params.inference} 2>&1 | tee {log} && touch {output.translations_done}
         """
 
@@ -374,6 +381,8 @@ rule download_subclades:
     conda: "../envs/nextstrain.yaml"
     params:
         url=lambda wildcards: subclade_url_by_lineage_and_segment.get(wildcards.lineage, {}).get(wildcards.segment),
+    wildcard_constraints:
+        segment="ha|na",
     shell:
         """
         curl -o {output.subclades} "{params.url}"
@@ -390,6 +399,8 @@ rule subclades:
     params:
         membership_name = "subclade",
         label_name = "Subclade",
+    wildcard_constraints:
+        segment="ha|na",
     conda: "../envs/nextstrain.yaml"
     benchmark:
         "benchmarks/subclades_{build_name}_{segment}.txt"
@@ -410,10 +421,11 @@ rule subclades:
 rule import_clades:
     input:
         tree = build_dir + "/{build_name}/ha/tree.nwk",
-        muts = build_dir + "/{build_name}/{segment}/muts.json",
         clades = build_dir + "/{build_name}/ha/clades.json",
     output:
         node_data = build_dir + "/{build_name}/{segment}/clades.json",
+    wildcard_constraints:
+        segment = "(?!ha/)[^/]+",   # any segment except ha
     conda: "../envs/nextstrain.yaml"
     benchmark:
         "benchmarks/import_clades_{build_name}_{segment}.txt"

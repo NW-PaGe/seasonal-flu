@@ -1,0 +1,10 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region CY113684.1 1 2310
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=380950
+CY113684.1	Genbank	region	1	2310	.	+	.	ID=CY113684.1:1..2310;Dbxref=taxon:380950;Name=1;bio-material=CEIRS#CIP047BE3292#;collection-date=1992;country=China: Beijing;gbkey=Src;lab-host=xtMK3 MDCK1 passage(s);mol_type=viral cRNA;nat-host=human;segment=1;serotype=H3N2;strain=A/Beijing/32/1992
+CY113684.1	Genbank	sequence_feature	1	2310	.	+	.	ID=id-CY113684.1:1..2310;Dbxref=IRD:NIGSP_CEIRS_CIP047_RFH3_00116.PB2;gbkey=misc_feature
+CY113684.1	Genbank	gene	13	2292	.	+	.	ID=gene-PB2;Name=PB2;gbkey=Gene;gene=PB2;gene_biotype=protein_coding
+CY113684.1	Genbank	CDS	13	2292	.	+	0	ID=cds-AFG99687.1;Parent=gene-PB2;Dbxref=NCBI_GP:AFG99687.1;Name=PB2;gbkey=CDS;gene=PB2;product=polymerase PB2;protein_id=AFG99687.1
+

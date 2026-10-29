@@ -1,0 +1,12 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region CY113683.1 1 2311
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=380950
+CY113683.1	Genbank	region	1	2311	.	+	.	ID=CY113683.1:1..2311;Dbxref=taxon:380950;Name=2;bio-material=CEIRS#CIP047BE3292#;collection-date=1992;country=China: Beijing;gbkey=Src;lab-host=xtMK3 MDCK1 passage(s);mol_type=viral cRNA;nat-host=human;segment=2;serotype=H3N2;strain=A/Beijing/32/1992
+CY113683.1	Genbank	sequence_feature	1	2311	.	+	.	ID=id-CY113683.1:1..2311;Dbxref=IRD:NIGSP_CEIRS_CIP047_RFH3_00116.PB1;gbkey=misc_feature
+CY113683.1	Genbank	gene	10	2283	.	+	.	ID=gene-PB1;Name=PB1;gbkey=Gene;gene=PB1;gene_biotype=protein_coding
+CY113683.1	Genbank	CDS	10	2283	.	+	0	ID=cds-AFG99685.1;Parent=gene-PB1;Dbxref=NCBI_GP:AFG99685.1;Name=PB1;gbkey=CDS;gene=PB1;product=polymerase PB1;protein_id=AFG99685.1
+CY113683.1	Genbank	gene	104	376	.	+	.	ID=gene-PB1-F2;Name=PB1-F2;gbkey=Gene;gene=PB1-F2;gene_biotype=protein_coding
+CY113683.1	Genbank	CDS	104	376	.	+	0	ID=cds-AFG99686.1;Parent=gene-PB1-F2;Dbxref=NCBI_GP:AFG99686.1;Name=PB1-F2;gbkey=CDS;gene=PB1-F2;product=PB1-F2 protein;protein_id=AFG99686.1
+
