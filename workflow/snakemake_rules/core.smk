@@ -421,7 +421,6 @@ rule subclades:
 rule import_clades:
     input:
         tree = build_dir + "/{build_name}/ha/tree.nwk",
-        muts = build_dir + "/{build_name}/{segment}/muts.json",
         clades = build_dir + "/{build_name}/ha/clades.json",
     output:
         node_data = build_dir + "/{build_name}/{segment}/clades.json",
