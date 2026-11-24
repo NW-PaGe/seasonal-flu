@@ -7,6 +7,33 @@ Changes for this project _do not_ currently follow the [Semantic Versioning rule
 Instead, changes appear below grouped by the date they were added to the workflow.
 The "__NEXT__" heading below describes changes in the unreleased development source code and as such may not be routinely kept up to date.
 
+# 18 November 2026
+
+- Update emerging haplotype definitions and colors for H1N1pdm and H3N2 HA.
+  See [#366](https://github.com/nextstrain/seasonal-flu/pull/366) for details.
+
+# 17 November 2026
+
+- Update clade names and colors for H3N2 HA.
+  See [#364](https://github.com/nextstrain/seasonal-flu/pull/364) for details.
+- Update clade names and colors for H1N1pdm HA and NA.
+  See [#363](https://github.com/nextstrain/seasonal-flu/pull/363) for details.
+
+# 12 November 2026
+
+- Update emerging haplotypes for H1N1pdm to include D.3.1.1 variants with 139N and 155E and remove older variants.
+  See [#362](https://github.com/nextstrain/seasonal-flu/pull/362) for details.
+
+# 4 November 2026
+
+- Color tips in HA trees by fitness estimates from [MLR models fit to different variant classifications](https://nextstrain.github.io/forecasts-flu/).
+  See [#361](https://github.com/nextstrain/seasonal-flu/pull/361) for details.
+
+# 15 October 2026
+
+- Support use of cached remote inputs when defining inputs via the `inputs` parameter.
+  See https://github.com/nextstrain/shared/pull/87 for more details.
+
 # 29 September 2026
 
 - Update ingest-open workflow to output the "bioproject_accession" column in
